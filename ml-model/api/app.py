@@ -1,10 +1,17 @@
 """
-Flask/FastAPI microservice exposing /predict for symptom triage.
+FastAPI microservice exposing /predict for symptom triage.
 """
 from fastapi import FastAPI
+from pydantic import BaseModel
+from rule_based.triage import triage
 
 app = FastAPI()
 
-@app.get("/predict")
-def predict():
-    return {"result": "not implemented"}
+
+class SymptomRequest(BaseModel):
+    symptoms: list[str]
+
+
+@app.post("/predict")
+def predict(request: SymptomRequest):
+    return triage(request.symptoms)
