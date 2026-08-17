@@ -43,3 +43,32 @@ def test_no_symptoms_returns_low_and_general_medicine():
     result = triage([])
     assert result["urgencyLevel"] == "low"
     assert result["suggestedDept"] == "General Medicine"
+
+def test_duplicate_symptoms_do_not_increase_urgency():
+    result = triage(["fever", "fever"])
+
+    assert result["urgencyLevel"] == "low"
+    assert result["suggestedDept"] == "General Medicine"
+
+def test_unknown_symptoms_are_ignored():
+    result = triage(["fever", "banana"])
+
+    assert result["urgencyLevel"] == "low"
+    assert result["suggestedDept"] == "General Medicine"
+    assert result["source"] == "rule_based"
+
+def test_only_unknown_symptoms_returns_low_and_general_medicine():
+    result = triage(["banana", "pizza"])
+
+    assert result["urgencyLevel"] == "low"
+    assert result["suggestedDept"] == "General Medicine"
+    assert result["source"] == "rule_based"
+
+def test_department_routing_for_chest_pain():
+    result = triage(["chest_pain"])
+    assert result["suggestedDept"] == "Cardiology"
+
+
+def test_department_routing_for_breathlessness():
+    result = triage(["breathlessness"])
+    assert result["suggestedDept"] == "Pulmonology"
