@@ -32,7 +32,7 @@ DEPARTMENT_MAP = {
 
 
 def triage(symptoms: list[str]) -> dict:
-    symptom_set = set(symptoms)
+    symptom_set = {symptom for symptom in symptoms if symptom in VALID_SYMPTOMS}
 
     # Check dangerous combos first — these always win, no matter what.
     for combo in RED_FLAG_COMBOS:
