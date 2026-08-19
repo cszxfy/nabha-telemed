@@ -1,9 +1,9 @@
 require("dotenv").config();
 const bcrypt = require("bcryptjs");
 const mongoose = require("mongoose");
-const connectDB = require("../src/config/db");
-const User = require("../src/models/User");
-const Doctor = require("../src/models/Doctor");
+const connectDB = require("../config/db");
+const User = require("../models/User");
+const Doctor = require("../models/Doctor");
 
 async function main() {
   const [phone, password, name] = process.argv.slice(2);
