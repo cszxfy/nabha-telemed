@@ -1,1 +1,27 @@
-{}
+{
+  "app_name": "Nabha Telemedicine",
+  "login_phone_label": "Phone Number",
+  "login_otp_label": "Enter OTP",
+  "login_button": "Login",
+  "register_name_label": "Full Name",
+  "register_age_label": "Age",
+  "register_gender_label": "Gender",
+  "register_village_label": "Village",
+  "register_button": "Register",
+  "symptom_select_title": "Select Your Symptoms",
+  "symptom_submit_button": "Check Symptoms",
+  "queue_position_label": "Your position in queue",
+  "queue_wait_label": "Estimated wait time",
+  "queue_joined_message": "You have joined the queue",
+  "call_start_button": "Start Video Call",
+  "call_end_button": "End Call",
+  "doctor_dashboard_title": "Patient Queue",
+  "doctor_call_next_button": "Call Next Patient",
+  "prescription_title": "Prescription",
+  "prescription_medicine_label": "Medicine",
+  "prescription_dosage_label": "Dosage",
+  "prescription_duration_label": "Duration",
+  "prescription_notes_label": "Notes",
+  "offline_message": "You are offline. We'll retry when you're back online.",
+  "error_generic": "Something went wrong. Please try again."
+}

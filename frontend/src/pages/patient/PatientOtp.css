@@ -1,0 +1,389 @@
+/* ================================================================
+   PatientOtp.css
+   Mobile-first. Uses design tokens from src/index.css.
+   Visual language: same header/card/footer structure as
+   PatientPhoneLogin and PatientWelcome.
+   ================================================================ */
+
+/* ── Page shell ──────────────────────────────────────────────────── */
+.otp-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-canvas);
+}
+
+/* ── Header — identical structure to Login/Welcome header ────────── */
+.otp-header {
+  display: flex;
+  align-items: center;
+  padding: var(--space-4) var(--space-8);
+  background: var(--color-white);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.otp-header__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.otp-logo-mark {
+  width: 32px;
+  height: 32px;
+  color: var(--color-teal);
+  flex-shrink: 0;
+}
+
+.otp-header__name {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 600;
+  color: var(--color-navy);
+  letter-spacing: -0.01em;
+}
+
+/* ── Main: centers card on larger screens ────────────────────────── */
+.otp-main {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: var(--space-12) var(--space-4);
+}
+
+/* ── Card ────────────────────────────────────────────────────────── */
+.otp-card {
+  width: 100%;
+  max-width: 440px;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+/* ── Back button ─────────────────────────────────────────────────── */
+.otp-back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: none;
+  border: none;
+  color: var(--color-ink-mid);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  padding: 0;
+  align-self: flex-start;
+  transition: color 0.15s;
+}
+
+.otp-back:hover {
+  color: var(--color-navy);
+}
+
+/* ── Heading block ───────────────────────────────────────────────── */
+.otp-heading-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.otp-heading {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  color: var(--color-navy);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.otp-sub {
+  font-size: var(--text-base);
+  color: var(--color-ink-mid);
+  line-height: 1.6;
+}
+
+.otp-sub strong {
+  color: var(--color-ink);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* ── Form ────────────────────────────────────────────────────────── */
+.otp-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* ── OTP boxes ───────────────────────────────────────────────────── */
+.otp-boxes {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: center;
+}
+
+.otp-box {
+  width: 52px;
+  height: 60px;
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  color: var(--color-ink);
+  background: var(--color-white);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.otp-box:focus {
+  border-color: var(--color-teal);
+  box-shadow: 0 0 0 3px rgba(30, 125, 116, 0.15);
+}
+
+.otp-box--filled {
+  border-color: var(--color-teal-mid);
+  background: var(--color-sky);
+}
+
+.otp-box:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.otp-boxes--error .otp-box {
+  border-color: #c0392b;
+}
+
+.otp-boxes--error .otp-box:focus {
+  border-color: #c0392b;
+  box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.12);
+}
+
+/* ── Error message ───────────────────────────────────────────────── */
+.otp-error {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: #c0392b;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.otp-error svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* ── Resend row ──────────────────────────────────────────────────── */
+.otp-resend-row {
+  display: flex;
+  justify-content: center;
+}
+
+.otp-resend-hint {
+  font-size: var(--text-sm);
+  color: var(--color-ink-mid);
+  text-align: center;
+}
+
+.otp-resend-timer {
+  font-weight: 600;
+  color: var(--color-navy);
+  font-variant-numeric: tabular-nums;
+}
+
+.otp-resend-btn {
+  background: none;
+  border: none;
+  color: var(--color-teal);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  padding: var(--space-1) var(--space-2);
+  transition: color 0.15s;
+}
+
+.otp-resend-btn:hover:not(:disabled) {
+  color: var(--color-teal-mid);
+  text-decoration: underline;
+}
+
+.otp-resend-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.otp-resend-notice {
+  font-size: var(--text-xs);
+  color: var(--color-teal);
+  text-align: center;
+  font-weight: 500;
+}
+
+/* ── Hint ────────────────────────────────────────────────────────── */
+.otp-hint {
+  font-size: var(--text-xs);
+  color: var(--color-ink-light);
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* ── Submit button ───────────────────────────────────────────────── */
+.otp-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-4) var(--space-6);
+  background: var(--color-teal);
+  color: var(--color-white);
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: var(--text-base);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: background 0.18s, box-shadow 0.18s;
+  box-shadow: 0 2px 8px rgba(30, 125, 116, 0.28);
+  margin-top: var(--space-2);
+}
+
+.otp-submit:hover:not(:disabled) {
+  background: var(--color-teal-mid);
+  box-shadow: 0 4px 14px rgba(30, 125, 116, 0.36);
+}
+
+.otp-submit:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: 0 1px 4px rgba(30, 125, 116, 0.22);
+}
+
+.otp-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* ── Change phone number ─────────────────────────────────────────── */
+.otp-change-number {
+  background: none;
+  border: none;
+  color: var(--color-ink-mid);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  text-align: center;
+  padding: var(--space-1);
+  transition: color 0.15s;
+}
+
+.otp-change-number:hover:not(:disabled) {
+  color: var(--color-navy);
+  text-decoration: underline;
+}
+
+.otp-change-number:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ── Spinner animation ───────────────────────────────────────────── */
+.otp-spinner {
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Trust note ──────────────────────────────────────────────────── */
+.otp-trust {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--color-ink-light);
+  text-align: center;
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--color-border);
+  line-height: 1.5;
+}
+
+.otp-trust svg {
+  flex-shrink: 0;
+  color: var(--color-amber);
+}
+
+/* ── Footer ──────────────────────────────────────────────────────── */
+.otp-footer {
+  text-align: center;
+  padding: var(--space-6) var(--space-8);
+  border-top: 1px solid var(--color-border);
+  background: var(--color-white);
+}
+
+.otp-footer p {
+  font-size: var(--text-xs);
+  color: var(--color-ink-light);
+}
+
+/* ── Responsive: tablet and up — center card with more breathing room */
+@media (min-width: 640px) {
+  .otp-main {
+    align-items: center;
+    padding: var(--space-16) var(--space-8);
+  }
+
+  .otp-heading {
+    font-size: var(--text-3xl);
+  }
+}
+
+/* ── Mobile: tighten header/card padding, shrink OTP boxes slightly ── */
+@media (max-width: 480px) {
+  .otp-header {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .otp-header__name {
+    font-size: var(--text-lg);
+  }
+
+  .otp-card {
+    padding: var(--space-6);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .otp-main {
+    padding: var(--space-6) var(--space-3);
+  }
+
+  .otp-box {
+    width: 46px;
+    height: 54px;
+    font-size: var(--text-xl);
+  }
+
+  .otp-boxes {
+    gap: var(--space-2);
+  }
+}
+
+/* ── Very narrow screens: keep 4 boxes on one line without crowding ── */
+@media (max-width: 340px) {
+  .otp-box {
+    width: 40px;
+    height: 50px;
+  }
+}

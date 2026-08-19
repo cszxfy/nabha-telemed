@@ -1,1 +1,27 @@
-{}
+{
+  "app_name": "नाभा टेलीमेडिसिन",
+  "login_phone_label": "फ़ोन नंबर",
+  "login_otp_label": "ओटीपी दर्ज करें",
+  "login_button": "लॉगिन",
+  "register_name_label": "पूरा नाम",
+  "register_age_label": "आयु",
+  "register_gender_label": "लिंग",
+  "register_village_label": "गाँव",
+  "register_button": "पंजीकरण करें",
+  "symptom_select_title": "अपने लक्षण चुनें",
+  "symptom_submit_button": "लक्षण जांचें",
+  "queue_position_label": "कतार में आपका स्थान",
+  "queue_wait_label": "अनुमानित प्रतीक्षा समय",
+  "queue_joined_message": "आप कतार में शामिल हो गए हैं",
+  "call_start_button": "वीडियो कॉल शुरू करें",
+  "call_end_button": "कॉल समाप्त करें",
+  "doctor_dashboard_title": "मरीज़ कतार",
+  "doctor_call_next_button": "अगले मरीज़ को बुलाएं",
+  "prescription_title": "पर्ची",
+  "prescription_medicine_label": "दवा",
+  "prescription_dosage_label": "खुराक",
+  "prescription_duration_label": "अवधि",
+  "prescription_notes_label": "टिप्पणियाँ",
+  "offline_message": "आप ऑफ़लाइन हैं। वापस ऑनलाइन आने पर हम फिर से प्रयास करेंगे।",
+  "error_generic": "कुछ गलत हो गया। कृपया पुनः प्रयास करें।"
+}
