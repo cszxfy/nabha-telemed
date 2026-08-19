@@ -1,1 +1,27 @@
-{}
+{
+  "app_name": "ਨਾਭਾ ਟੈਲੀਮੈਡੀਸਨ",
+  "login_phone_label": "ਫ਼ੋਨ ਨੰਬਰ",
+  "login_otp_label": "ਓਟੀਪੀ ਦਰਜ ਕਰੋ",
+  "login_button": "ਲੌਗਿਨ",
+  "register_name_label": "ਪੂਰਾ ਨਾਮ",
+  "register_age_label": "ਉਮਰ",
+  "register_gender_label": "ਲਿੰਗ",
+  "register_village_label": "ਪਿੰਡ",
+  "register_button": "ਰਜਿਸਟਰ ਕਰੋ",
+  "symptom_select_title": "ਆਪਣੇ ਲੱਛਣ ਚੁਣੋ",
+  "symptom_submit_button": "ਲੱਛਣ ਜਾਂਚੋ",
+  "queue_position_label": "ਕਤਾਰ ਵਿੱਚ ਤੁਹਾਡੀ ਸਥਿਤੀ",
+  "queue_wait_label": "ਅਨੁਮਾਨਿਤ ਉਡੀਕ ਸਮਾਂ",
+  "queue_joined_message": "ਤੁਸੀਂ ਕਤਾਰ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋ ਗਏ ਹੋ",
+  "call_start_button": "ਵੀਡੀਓ ਕਾਲ ਸ਼ੁਰੂ ਕਰੋ",
+  "call_end_button": "ਕਾਲ ਖਤਮ ਕਰੋ",
+  "doctor_dashboard_title": "ਮਰੀਜ਼ ਕਤਾਰ",
+  "doctor_call_next_button": "ਅਗਲੇ ਮਰੀਜ਼ ਨੂੰ ਬੁਲਾਓ",
+  "prescription_title": "ਨੁਸਖ਼ਾ",
+  "prescription_medicine_label": "ਦਵਾਈ",
+  "prescription_dosage_label": "ਖੁਰਾਕ",
+  "prescription_duration_label": "ਮਿਆਦ",
+  "prescription_notes_label": "ਨੋਟਸ",
+  "offline_message": "ਤੁਸੀਂ ਆਫ਼ਲਾਈਨ ਹੋ। ਵਾਪਸ ਆਨਲਾਈਨ ਆਉਣ 'ਤੇ ਅਸੀਂ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰਾਂਗੇ।",
+  "error_generic": "ਕੁਝ ਗਲਤ ਹੋ ਗਿਆ। ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
+}
