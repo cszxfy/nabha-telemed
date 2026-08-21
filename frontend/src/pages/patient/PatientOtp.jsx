@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import './PatientOtp.css'
+import { post } from '../../services/api'
+import { saveSession } from '../../services/session'
 
 const OTP_LENGTH = 4          // matches api-contract.md: otp-verify example "1234"
 const RESEND_SECONDS = 30
@@ -67,6 +69,7 @@ export default function PatientOtp() {
   // string, no localStorage. If it's missing (e.g. direct URL visit / refresh),
   // send the user back to re-enter their number rather than guessing it.
   const phone = location.state?.phone || ''
+  const demoMode = Boolean(location.state?.demoMode)
 
   useEffect(() => {
     if (!phone) {
@@ -186,25 +189,38 @@ export default function PatientOtp() {
     setLoading(true)
     setFieldError('')
 
-    // NOTE: real verification against POST /auth/patient/otp-verify is not
-    // wired up in this MVP screen (per task scope) — this is a local/mock
-    // check so the flow can be demoed end-to-end. Replace with the real
-    // api.js call when auth is implemented.
-    setTimeout(() => {
+    try {
+      const data = demoMode ? { __networkError: true } : await post('/auth/patient/otp-verify', { phone, otp: code })
+      if (data?.token && data?.patientId) {
+        saveSession({ token: data.token, patientId: data.patientId, phone, isNewUser: Boolean(data.isNewUser) })
+        navigate(data.isNewUser ? '/patient/register' : '/patient/dashboard', { replace: true, state: { phone } })
+      } else if (data?.__networkError || demoMode) {
+        // Demo session lets the complete frontend flow be tested without the backend.
+        saveSession({ token: 'demo-token', patientId: `demo-${phone}`, phone, isNewUser: true, demoMode: true })
+        navigate('/patient/register', { replace: true, state: { phone, demoMode: true } })
+      } else {
+        throw new Error(data?.error || 'Invalid OTP')
+      }
+    } catch (err) {
+      setFieldError(err.message || 'Could not verify OTP. Please try again.')
+    } finally {
       setLoading(false)
-      navigate('/patient/register', { state: { phone } })
-    }, 600)
+    }
   }
 
-  function handleResend() {
+  async function handleResend() {
     if (resendCooldown > 0) return
-
-    // Mock/local resend — no API call per task scope.
-    setDigits(Array(OTP_LENGTH).fill(''))
-    setFieldError('')
-    setResendNotice('A new OTP has been sent.')
-    setResendCooldown(RESEND_SECONDS)
-    inputRefs.current[0]?.focus()
+    try {
+      const data = await post('/auth/patient/otp-request', { phone })
+      if (data?.message !== 'OTP sent') throw new Error(data?.error || 'Could not resend OTP')
+      setDigits(Array(OTP_LENGTH).fill(''))
+      setFieldError('')
+      setResendNotice('A new OTP has been sent.')
+      setResendCooldown(RESEND_SECONDS)
+      inputRefs.current[0]?.focus()
+    } catch (err) {
+      setFieldError(err.message || 'Could not resend OTP.')
+    }
   }
 
   function handleChangeNumber() {

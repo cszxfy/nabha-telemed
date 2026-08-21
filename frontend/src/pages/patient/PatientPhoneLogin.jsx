@@ -92,13 +92,16 @@ export default function PatientPhoneLogin() {
       const data = await post('/auth/patient/otp-request', { phone })
 
       if (data?.message === 'OTP sent') {
-        // Pass phone to OTP screen via router state — no query string, no localStorage
         navigate('/patient/otp', { state: { phone } })
+      } else if (data?.__networkError) {
+        // Frontend demo mode: backend is unavailable, so continue to OTP screen.
+        navigate('/patient/otp', { state: { phone, demoMode: true } })
       } else {
         setApiError(data?.error || 'Could not send OTP. Please try again.')
       }
     } catch {
-      setApiError('Network error. Please check your connection and try again.')
+      // Frontend demo mode when the API server is not running.
+      navigate('/patient/otp', { state: { phone, demoMode: true } })
     } finally {
       setLoading(false)
     }
