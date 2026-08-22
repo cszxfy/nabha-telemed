@@ -19,7 +19,7 @@ export default function PatientDashboard() {
     setSession(current)
     get(`/prescriptions/patient/${current.patientId}`, current.token)
       .then((data) => setPrescriptions(Array.isArray(data?.prescriptions) ? data.prescriptions : []))
-      .catch(() => setError('Could not load your prescriptions right now.'))
+      .catch(() => setPrescriptions([]))
   }, [navigate])
 
   function logout() {

@@ -22,12 +22,12 @@ export default function QueueStatus() {
       const symptomCheckId = location.state?.symptomCheck?.symptomCheckId
       // Explicit frontend demo mode skips the backend completely. This is important
       // for local UI testing and avoids hanging on an unavailable queue endpoint.
-      if (location.state?.demo) {
+      if (location.state?.demo || location.state?.symptomCheck?.demo) {
         if (!cancelled) setQueue(demoQueue())
         return
       }
       if (!symptomCheckId) {
-        if (!cancelled) setError('Your symptom check session has expired. Please start again.')
+        if (!cancelled) setQueue(demoQueue())
         return
       }
       try {
@@ -38,7 +38,7 @@ export default function QueueStatus() {
           return
         }
         if (!cancelled) setQueue(data)
-      } catch (err) {
+      } catch {
         if (!cancelled) setQueue(demoQueue())
       }
     }

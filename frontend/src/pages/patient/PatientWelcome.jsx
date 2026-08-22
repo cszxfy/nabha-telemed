@@ -119,7 +119,20 @@ export default function PatientWelcome() {
           <NabhaLogoMark />
           <span className="welcome-header__name">Nabha Telemed</span>
         </div>
-        <LanguageSelector lang={lang} setLang={setLang} />
+        <div className="welcome-header__actions">
+          <button
+            className="doctor-portal-entry"
+            onClick={() => navigate('/doctor/login')}
+            aria-label="Open the Nabha Telemed doctor portal"
+          >
+            <span className="doctor-portal-entry__icon" aria-hidden="true">✚</span>
+            <span>Doctor Portal</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+          <LanguageSelector lang={lang} setLang={setLang} />
+        </div>
       </header>
 
       {/* ── Main ── */}

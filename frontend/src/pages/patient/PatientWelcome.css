@@ -47,6 +47,48 @@
   letter-spacing: -0.01em;
 }
 
+
+.welcome-header__actions {
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+}
+
+.doctor-portal-entry {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  min-height: 42px;
+  padding: .55rem .85rem;
+  border: 1px solid #b8d7d4;
+  border-radius: 10px;
+  background: #eef8f7;
+  color: var(--color-navy);
+  font-size: .86rem;
+  font-weight: 750;
+  transition: background .16s, border-color .16s, transform .16s, box-shadow .16s;
+}
+
+.doctor-portal-entry:hover {
+  background: #e4f3f1;
+  border-color: #8fc7c1;
+  box-shadow: 0 4px 14px rgba(30,125,116,.12);
+  transform: translateY(-1px);
+}
+
+.doctor-portal-entry:active { transform: translateY(0); }
+
+.doctor-portal-entry__icon {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  background: var(--color-teal);
+  color: white;
+  font-size: .78rem;
+}
+
 /* ── Language selector ───────────────────────────────────────────── */
 .lang-selector {
   display: flex;
@@ -315,4 +357,11 @@
     max-width: 100%;
     padding: var(--space-4);
   }
+}
+
+
+@media (max-width: 760px) {
+  .welcome-header__actions { gap: .4rem; }
+  .doctor-portal-entry { padding: .5rem .65rem; font-size: .8rem; }
+  .doctor-portal-entry span:last-of-type { display: none; }
 }
