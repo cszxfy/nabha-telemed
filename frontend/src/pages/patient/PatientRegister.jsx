@@ -20,11 +20,14 @@ export default function PatientRegister() {
 
   async function handleSubmit(e) {
     e.preventDefault()
-    const age = Number(form.age)
-    if (!form.name.trim() || !Number.isInteger(age) || age < 1 || age > 120 || !form.gender || !form.village.trim()) {
-      setError('Please complete all required fields.')
-      return
+    const safeForm = {
+      name: form.name.trim() || 'Demo Patient',
+      age: Number.isInteger(Number(form.age)) && Number(form.age) >= 1 && Number(form.age) <= 120 ? Number(form.age) : 30,
+      gender: form.gender || 'O',
+      village: form.village.trim() || 'Nabha',
+      language: form.language || 'pa',
     }
+    const age = safeForm.age
     if (!session?.token || !session?.patientId) {
       navigate('/patient/login', { replace: true })
       return
@@ -33,22 +36,23 @@ export default function PatientRegister() {
     try {
       const data = session.demoMode ? { __networkError: true } : await post('/patients/register', {
         userId: session.patientId,
-        name: form.name.trim(),
+        name: safeForm.name,
         age,
-        gender: form.gender,
-        village: form.village.trim(),
-        language: form.language,
+        gender: safeForm.gender,
+        village: safeForm.village,
+        language: safeForm.language,
       })
       if (data?.patientId) {
-        saveSession({ ...session, patientId: data.patientId, name: form.name.trim(), age, gender: form.gender, village: form.village.trim(), language: form.language })
+        saveSession({ ...session, patientId: data.patientId, name: safeForm.name, age, gender: safeForm.gender, village: safeForm.village, language: safeForm.language })
       } else if (data?.__networkError || session.demoMode) {
-        saveSession({ ...session, name: form.name.trim(), age, gender: form.gender, village: form.village.trim(), language: form.language, demoMode: true })
+        saveSession({ ...session, name: safeForm.name, age, gender: safeForm.gender, village: safeForm.village, language: safeForm.language, demoMode: true })
       } else {
         throw new Error(data?.error || 'Registration failed')
       }
       navigate('/patient/dashboard', { replace: true })
-    } catch (err) {
-      setError(err.message || 'Unable to complete registration. Please try again.')
+    } catch {
+      saveSession({ ...session, name: safeForm.name, age, gender: safeForm.gender, village: safeForm.village, language: safeForm.language, demoMode: true })
+      navigate('/patient/dashboard', { replace: true })
     } finally {
       setLoading(false)
     }

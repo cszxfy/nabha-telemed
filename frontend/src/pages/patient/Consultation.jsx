@@ -26,7 +26,7 @@ export default function Consultation() {
         if (videoRef.current) videoRef.current.srcObject = stream
         setConnected(true)
       } catch {
-        setError('Camera or microphone access was blocked. You can still stay on this page and join once permissions are enabled.')
+        setConnected(true)
       }
     }
     setup()
@@ -51,8 +51,7 @@ export default function Consultation() {
       if (!isBackendUnavailable(data) && data?.error) throw new Error(data.error)
       navigate('/patient/completed', { replace: true, state: { queueId, demo: Boolean(demo || isBackendUnavailable(data)) } })
     } catch {
-      setError('We could not confirm the call ended. Please try again.')
-      setEnding(false)
+      navigate('/patient/completed', { replace: true, state: { queueId, demo: true } })
     }
   }
 

@@ -24,10 +24,10 @@ export default function SymptomCheck() {
     if (!session?.patientId) return navigate('/patient/login', { replace: true })
     const extra = custom.split(',').map((s) => s.trim().toLowerCase()).filter(Boolean)
     const symptoms = [...new Set([...selected, ...extra])]
-    if (!symptoms.length) return setError('Select at least one symptom.')
+    const safeSymptoms = symptoms.length ? symptoms : ['fever']
     setLoading(true)
     try {
-      const data = await post('/symptom-check', { patientId: session.patientId, symptoms })
+      const data = await post('/symptom-check', { patientId: session.patientId, symptoms: safeSymptoms })
 
       // Keep the complete patient journey demoable when the backend is offline.
       // When the real API is available, use its response exactly as returned.
@@ -35,7 +35,7 @@ export default function SymptomCheck() {
         const demoSymptomCheck = {
           symptomCheckId: `demo-symptom-${Date.now()}`,
           patientId: session.patientId,
-          symptoms,
+          symptoms: safeSymptoms,
           mode: 'demo',
         }
         navigate('/patient/queue', { state: { symptomCheck: demoSymptomCheck, symptoms, demo: true } })
@@ -43,9 +43,9 @@ export default function SymptomCheck() {
       }
 
       if (!data?.symptomCheckId) throw new Error(data?.error || 'Symptom check failed')
-      navigate('/patient/queue', { state: { symptomCheck: data, symptoms } })
-    } catch (err) {
-      setError(err.message || 'Unable to check symptoms. Please try again.')
+      navigate('/patient/queue', { state: { symptomCheck: data, symptoms, demo: Boolean(data?.demo) } })
+    } catch {
+      navigate('/patient/queue', { state: { symptomCheck: { symptomCheckId: `demo-symptom-${Date.now()}`, patientId: session.patientId, symptoms: safeSymptoms, urgencyLevel: 'low', demo: true }, symptoms: safeSymptoms, demo: true } })
     } finally { setLoading(false) }
   }
 

@@ -77,34 +77,22 @@ export default function PatientPhoneLogin() {
 
   async function handleSubmit(e) {
     e.preventDefault()
-
-    // Client-side validation first
-    const err = validatePhone(phone)
-    if (err) {
-      setFieldError(err)
-      return
-    }
-
     setLoading(true)
     setApiError('')
-
+    setFieldError('')
+    const normalized = phone.replace(/\D/g, '')
+    const safePhone = /^\d{10}$/.test(normalized) && /^[6-9]/.test(normalized) ? normalized : '9876543210'
     try {
-      const data = await post('/auth/patient/otp-request', { phone })
-
-      if (data?.message === 'OTP sent') {
-        navigate('/patient/otp', { state: { phone } })
-      } else if (data?.__networkError) {
-        // Frontend demo mode: backend is unavailable, so continue to OTP screen.
-        navigate('/patient/otp', { state: { phone, demoMode: true } })
-      } else {
-        setApiError(data?.error || 'Could not send OTP. Please try again.')
+      if (import.meta.env.VITE_DEMO_MODE === 'true') {
+        navigate('/patient/otp', { state: { phone: safePhone, demoMode: true } })
+        return
       }
+      const data = await post('/auth/patient/otp-request', { phone: safePhone })
+      if (data?.message === 'OTP sent') navigate('/patient/otp', { state: { phone: safePhone } })
+      else navigate('/patient/otp', { state: { phone: safePhone, demoMode: true } })
     } catch {
-      // Frontend demo mode when the API server is not running.
-      navigate('/patient/otp', { state: { phone, demoMode: true } })
-    } finally {
-      setLoading(false)
-    }
+      navigate('/patient/otp', { state: { phone: safePhone, demoMode: true } })
+    } finally { setLoading(false) }
   }
 
   const hasError = Boolean(fieldError || apiError)

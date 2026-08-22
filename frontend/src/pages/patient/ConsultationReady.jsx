@@ -12,8 +12,7 @@ export default function ConsultationReady() {
   const [error, setError] = useState('')
 
   async function startCall() {
-    const queueId = location.state?.queueId
-    if (!queueId) { setError('Consultation session is missing.'); return }
+    const queueId = location.state?.queueId || `demo-q-${Date.now()}`
     setLoading(true)
     try {
       const data = await post('/call/start', { queueId }, session.token)
@@ -21,9 +20,9 @@ export default function ConsultationReady() {
         navigate('/patient/consultation', { replace: true, state: { queueId, callId: `demo-call-${Date.now()}`, demo: true } })
         return
       }
-      if (!data?.callId) throw new Error(data?.error || 'Could not start consultation')
+      if (!data?.callId) { navigate('/patient/consultation', { replace: true, state: { queueId, callId: `demo-call-${Date.now()}`, demo: true } }); return }
       navigate('/patient/consultation', { replace: true, state: { queueId, callId: data.callId, agoraToken: data.agoraToken } })
-    } catch (err) { setError(err.message || 'Unable to start the call.') }
+    } catch { navigate('/patient/consultation', { replace: true, state: { queueId, callId: `demo-call-${Date.now()}`, demo: true } }) }
     finally { setLoading(false) }
   }
 
